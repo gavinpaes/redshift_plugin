@@ -187,7 +187,7 @@ class S3ToRedshiftOperator(BaseOperator):
             """.format(self.redshift_schema, self.table)
 
         pg_schema = dict(pg_hook.get_records(pg_query))
-        incoming_keys = [column['name'] for column in schema]
+        incoming_keys = [column['name'].lower() for column in schema]
         diff = list(set(incoming_keys) - set(pg_schema.keys()))
         print(diff)
         # Check length of column differential to see if any new columns exist
